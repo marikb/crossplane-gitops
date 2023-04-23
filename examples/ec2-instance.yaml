@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ec2-instance
+spec:
+  containers:
+  - name: ec2-instance
+    image: amazonlinux:latest
+    command: ["/bin/bash"]
+    args: ["-c", "while true; do sleep 1; done"]
