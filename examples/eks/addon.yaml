@@ -6,11 +6,12 @@ metadata:
     meta.upbound.io/example-id: eks/v1beta1/addon
 spec:
   forProvider:
-    name: vpc-cni
+    addonName: vpc-cni
     clusterNameSelector:
       matchLabels:
         testing.upbound.io/example-name: example
     region: us-west-1
+
 
 ---
 apiVersion: eks.aws.upbound.io/v1beta1
