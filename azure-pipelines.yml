@@ -10,11 +10,28 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      echo "
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: ec2-instance
+      spec:
+        containers:
+        - name: ec2-instance
+          image: amazonlinux:latest
+          command: ["/bin/bash"]
+          args: ["-c", "while true; do sleep 1; done"]
+    " > Devops-Ec2.yaml
+- task: GitHub@1
+  inputs:
+    connection: 'GitHub connection' # The connection to your GitHub account
+    repositoryName: '<repository name>'
+    action: 'createOrUpdateReleaseAsset'
+    assetType: 'yaml' # The type of asset to upload
+    releaseTag: '<release tag>'
+    assetName: 'hello.yaml' # The name of the file to upload
+    assetPath: './hello.yaml' # The local path of the file to upload
