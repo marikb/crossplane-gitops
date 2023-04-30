@@ -28,7 +28,7 @@ steps:
       " > Devops-Ec2.yaml
 - task: GitHub@1
   inputs:
-    connection: 'GitHub connection' # The connection to your GitHub account
+    connection: 'github crossplane 1' # The connection to your GitHub account
     repositoryName: 'marikb/crossplane-gitops'
     action: 'createOrUpdateReleaseAsset'
     assetType: 'yaml' # The type of asset to upload
