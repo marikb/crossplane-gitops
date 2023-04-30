@@ -29,9 +29,9 @@ steps:
 - task: GitHub@1
   inputs:
     connection: 'GitHub connection' # The connection to your GitHub account
-    repositoryName: '<repository name>'
+    repositoryName: 'marikb/crossplane-gitops'
     action: 'createOrUpdateReleaseAsset'
     assetType: 'yaml' # The type of asset to upload
-    releaseTag: '<release tag>'
+    releaseTag: '1'
     assetName: 'hello.yaml' # The name of the file to upload
     assetPath: './hello.yaml' # The local path of the file to upload
