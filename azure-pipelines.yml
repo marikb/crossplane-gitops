@@ -10,28 +10,13 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: Bash@3
+- task: GitHubRelease@1
   inputs:
-    targetType: 'inline'
-    script: |
-      echo "
-      apiVersion: v1
-      kind: Pod
-      metadata:
-        name: ec2-instance
-      spec:
-        containers:
-        - name: ec2-instance
-          image: amazonlinux:latest
-          command: ["/bin/bash"]
-          args: ["-c", "while true; do sleep 1; done"]
-      " > Devops-Ec2.yaml
-- task: GitHub@1
-  inputs:
-    connection: 'github crossplane 1' # The connection to your GitHub account
+    gitHubConnection: 'github crossplane 1'
     repositoryName: 'marikb/crossplane-gitops'
-    action: 'createOrUpdateReleaseAsset'
-    assetType: 'yaml' # The type of asset to upload
-    releaseTag: '1'
-    assetName: 'Devops-Ec2.yaml' # The name of the file to upload
-    assetPath: './Devops-Ec2.yaml' # The local path of the file to upload
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'gitTag'
+    assets: '$(Build.ArtifactStagingDirectory)/Devops-ec2.yaml'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
