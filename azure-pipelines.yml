@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
@@ -10,13 +5,12 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: GitHubRelease@1
+- checkout: self
+
+- task: GitHubPush@0
   inputs:
-    gitHubConnection: 'github crossplane 1'
-    repositoryName: 'marikb/crossplane-gitops'
-    action: 'create'
-    target: '$(Build.SourceVersion)'
-    tagSource: 'gitTag'
-    assets: '$(Build.ArtifactStagingDirectory)/Devops-ec2.yaml'
-    changeLogCompareToRelease: 'lastFullRelease'
-    changeLogType: 'commitBased'
+    repositoryName: 'crossplane-gitops'
+    target: 'refs/heads/main'
+    filepath: 'ado-ec2.yaml'
+    contents: 'This is an example file.'
+    oauthToken: '$(GITHUB_TOKEN)'
