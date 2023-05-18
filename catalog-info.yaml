@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: crossplane-gitops
+  annotations:
+    github.com/project-slug: marikb/crossplane-gitops
+spec:
+  type: other
+  lifecycle: unknown
